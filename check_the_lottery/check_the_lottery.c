@@ -15,6 +15,7 @@ void Print(int *a){
     printf("\n");
 }
 
+/*バブルソートで当たり番号を昇順にソート*/
 void Sort(int a[], int b[], int t, int w){
     int tmp, i, j;
     for(i=t+1;i<=w;i++){
@@ -27,6 +28,7 @@ void Sort(int a[], int b[], int t, int w){
     }
 }
 
+/*二分探索によって当たっているか確認*/
 int Search(int a[], int x, int n){
     int t, w, m;
     t=0;
@@ -44,17 +46,17 @@ int main(void){
     int n, i, k;
     FILE *fp;
     int win[MAXN], grade[MAXN], lot;
-    fp=fopen("win.txt", "r");
-    fscanf(fp, "%d", &n);
-    for(i=0;i<n;i++){ fscanf(fp, "%d %d", &win[i], &grade[i]); }
+
+    fp=fopen("win.txt", "r");                                               //当たり番号を読み込む
+    fscanf(fp, "%d", &n);                                                   //先頭の配列数を読み込む
+    for(i=0;i<n;i++){ fscanf(fp, "%d %d", &win[i], &grade[i]); }            //当たり番号を読み込む
     fclose(fp);
 
-    Sort(win, grade, 0, n-1);
+    Sort(win, grade, 0, n-1);                                               //ソートする
 
-    fp=fopen("lots.txt", "r");
-    while(fscanf(fp, "%d", &lot)!=EOF){
-        if((k=Search(win, lot, n
-        ))!=-1){
+    fp=fopen("lots.txt", "r");                                              //自分の番号を読み込む
+    while(fscanf(fp, "%d", &lot)!=EOF){                                     //1行ずつ読み込んでいく
+        if((k=Search(win, lot, n))!=-1){
             printf("winning number: %4d, grade: %d\n", lot, grade[k]);
         }
     }
